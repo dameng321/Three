@@ -1,12 +1,11 @@
 package com.dameng.system;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +41,8 @@ public class GeneratorCode {
                             .outputDir(System.getProperty("user.dir") + "\\src\\main\\java")    //输出路径(写到java目录)
                             .enableSwagger()           //开启swagger
                             .commentDate("yyyy-MM-dd")
-                            ;            //开启覆盖之前生成的文件
+                            .disableOpenDir()
+                    ;
 
                 })
                 .packageConfig(builder -> {
@@ -64,6 +64,7 @@ public class GeneratorCode {
                             .formatServiceImplFileName("%sServiceImpl")
                             .entityBuilder()
                             .enableLombok()
+                            .idType(IdType.ASSIGN_ID)
                             .logicDeleteColumnName("deleted")
                             .versionColumnName("version")
                             .enableTableFieldAnnotation()
