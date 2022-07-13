@@ -1,0 +1,37 @@
+server :
+  port : 11000
+  servlet:
+    context-path: /three-system
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  tomcat:
+    uri-encoding: UTF-8
+
+spring :
+  profiles:
+    active: dev
+  application:
+    name : system
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jackson:
+    date-format : yyyy-MM-dd HH:mm:ss
+    time-zone : GMT+8
+
+# swagger
+swagger:
+  version: 2.0
+  groupName: Three
+  title: 系统模块
+  description: 大梦
+  # 扫描包
+  basePackage: com.dameng.system.controller
+
+#设置security不拦截请求
+secure:
+  ignored:
+    urls:
+      - /permission/getMenus
