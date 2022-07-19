@@ -23,7 +23,7 @@ public class GeneratorCode {
 
     @Test
     public void code(){
-        String url = "jdbc:mysql://10.24.20.55:3306/three?characterEncoding=utf8&serverTimezone=UTC";
+        String url = "jdbc:mysql://1.116.45.32:3366/three?characterEncoding=utf8&serverTimezone=UTC";
         String username = "root";
         String password = "dameng";
 
@@ -42,6 +42,7 @@ public class GeneratorCode {
                             .enableSwagger()           //开启swagger
                             .commentDate("yyyy-MM-dd")
                             .disableOpenDir()
+
                     ;
 
                 })
@@ -65,7 +66,7 @@ public class GeneratorCode {
                             .entityBuilder()
                             .enableLombok()
                             .idType(IdType.ASSIGN_ID)
-                            .logicDeleteColumnName("deleted")
+                            .logicDeleteColumnName("is_deleted")
                             .versionColumnName("version")
                             .enableTableFieldAnnotation()
                             .controllerBuilder()
@@ -73,6 +74,7 @@ public class GeneratorCode {
                             .enableRestStyle()
                             .mapperBuilder()
                             .enableBaseResultMap()  //生成通用的resultMap
+                            .enableBaseColumnList()
                             .superClass(BaseMapper.class)
                             .formatMapperFileName("%sMapper")
                             .enableMapperAnnotation()

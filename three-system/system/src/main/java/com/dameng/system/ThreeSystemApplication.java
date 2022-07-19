@@ -3,6 +3,8 @@ package com.dameng.system;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -13,9 +15,10 @@ import org.springframework.context.annotation.ComponentScan;
  * @since 2022-7-12 17:08
  **/
 
-@SpringBootApplication
-@ComponentScan(basePackages = {"com.dameng"})
+@SpringBootApplication(scanBasePackages = "com.dameng.*")
 @MapperScan("com.dameng.*.mapper")
+@EnableFeignClients
+@EnableDiscoveryClient
 public class ThreeSystemApplication {
 
     public static void main(String[] args) {

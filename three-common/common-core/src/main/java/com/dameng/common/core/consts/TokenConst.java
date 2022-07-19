@@ -31,7 +31,7 @@ public class TokenConst {
     public static final String USER_ID_KEY = "uid";
 
     /**
-     * user id key
+     * username key
      */
     public static final String USER_NAME_KEY = "uname";
 

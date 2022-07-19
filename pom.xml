@@ -25,6 +25,7 @@
         <cloud-alibaba.version>2021.0.1.0</cloud-alibaba.version>
         <spring-web.version>2.6.9</spring-web.version>
         <spring-test.version>2.6.9</spring-test.version>
+        <spring-aop.version>2.6.9</spring-aop.version>
         <mysql.version>8.0.29</mysql.version>
         <druid.version>1.2.11</druid.version>
         <redis.version>2.6.1</redis.version>
@@ -40,6 +41,14 @@
         <poi.version>4.1.2</poi.version>
         <spring-websocket.version>2.7.1</spring-websocket.version>
     </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -68,6 +77,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-test</artifactId>
                 <version>${spring-test.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring-aop.version}</version>
             </dependency>
 
             <dependency>

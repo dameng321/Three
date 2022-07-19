@@ -5,12 +5,18 @@ spring :
     username : root
     password : dameng
     hikari:
-      minimum-idle: 1
+      minimum-idle: 10
       maximum-pool-size: 30
       validation-timeout: 30000
       connection-timeout: 30000
       connection-test-query: SELECT 1
       pool-name: MyHikariCP
+    dbcp2:
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      validation-query: SELECT 1 FROM DUAL
+      time-between-eviction-runs-millis: 60000
   cloud:
     nacos:
       discovery:
@@ -30,10 +36,6 @@ spring :
     timeout: 5000ms
 
 
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath*:mapper/*.xml
 
 
 #设置security不拦截请求
