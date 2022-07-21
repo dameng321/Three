@@ -4,10 +4,14 @@ import com.dameng.common.core.consts.TokenConst;
 import com.dameng.common.core.result.R;
 import com.dameng.common.core.utils.JwtUtils;
 import com.dameng.common.core.utils.RedisUtil;
+import com.dameng.system.entity.form.LoginForm;
+import com.dameng.system.service.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -26,16 +30,24 @@ import java.util.Map;
 public class LoginController {
 
     @Autowired
-    private RedisUtil redisUtil;
+    private LoginService loginService;
 
     @PostMapping("/login")
     @ApiOperation("登录")
-    public R login(){
-        Map<String, Object> map = new HashMap<>(8);
-        map.put(TokenConst.USER_NAME_KEY,"test");
-        map.put(TokenConst.USER_ID_KEY,"10086");
-        String token = JwtUtils.createToken(map);
-        return R.ok().data(TokenConst.TOKEN_NAME,token);
+    public R login(@RequestBody LoginForm loginForm){
+        return loginService.login(loginForm);
+    }
+
+    @GetMapping("/info")
+    @ApiOperation("获取当前登录用户信息")
+    public R info(){
+        return loginService.info();
+    }
+
+    @GetMapping("/router")
+    @ApiOperation("获取当前登录用户的路由")
+    public R router(){
+        return loginService.getRoute();
     }
 
 }

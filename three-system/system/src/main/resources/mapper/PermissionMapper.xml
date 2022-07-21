@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dameng.system.mapper.PermissionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dameng.system.entity.Permission">
+        <id column="id" property="id" />
+        <result column="pid" property="pid" />
+        <result column="name" property="name" />
+        <result column="type" property="type" />
+        <result column="permission_value" property="permissionValue" />
+        <result column="path" property="path" />
+        <result column="component" property="component" />
+        <result column="icon" property="icon" />
+        <result column="status" property="status" />
+        <result column="sort" property="sort" />
+        <result column="version" property="version" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="BaseColumn">
+        id as id,
+        pid as pid,
+        `name` as `name`,
+        type as type,
+        permission_value as permissionValue,
+        `path` as `path`,
+        redirect as redirect,
+        component as component,
+        icon as icon,
+        `status` as `status`,
+        sort as sort
+    </sql>
+
+    <select id="selectValuesInRoleIds" resultType="java.lang.String">
+        select permission_value
+        from permission
+        where id in (
+                select DISTINCT permission_id from role_permission
+                where role_id in
+                <foreach collection="roleIds" item="id" open="(" separator="," close=")" >
+                    #{id}
+                </foreach>
+            ) and permission_value is not null
+    </select>
+    <select id="selectListByRoleId" resultType="com.dameng.system.entity.Permission">
+        select
+            <include refid="BaseColumn" />
+        from permission
+        where id in (
+            select DISTINCT permission_id
+            from role_permission
+                where role_id = #{roleId}
+        )
+        order by sort
+    </select>
+
+</mapper>
