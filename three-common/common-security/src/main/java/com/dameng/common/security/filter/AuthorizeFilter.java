@@ -73,11 +73,8 @@ public class AuthorizeFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(TokenConst.TOKEN_NAME);
 
         if(token != null) {
-            long l = System.currentTimeMillis();
             //从token获取用户名
             String username = JwtUtils.getUserName(token);
-            long l1 = System.currentTimeMillis();
-            System.out.println(l1-l);
 
             User user = (User) redisUtil.hget(RedisKeyConst.ADMIN_USER, username);
             Role role = (Role) redisUtil.hget(RedisKeyConst.ADMIN_ROLE, username);

@@ -40,4 +40,5 @@ public class TokenConst {
      */
     public static final String TOKEN_POCKET = "pocket";
 
+    public static final Long JWT_EXPIRATION = 604800L;
 }

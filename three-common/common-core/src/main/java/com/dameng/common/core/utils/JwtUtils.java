@@ -1,5 +1,6 @@
 package com.dameng.common.core.utils;
 
+import java.util.Date;
 import java.util.Map;
 import com.dameng.common.core.consts.TokenConst;
 import com.dameng.common.core.text.Convert;
@@ -16,7 +17,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * @since 2020-5-20
  */
 public class JwtUtils {
+
     public static String secret = TokenConst.JWT_KEY;
+
+    private static Long expiration = TokenConst.JWT_EXPIRATION;
 
     /**
      * 从数据声明生成令牌
@@ -25,9 +29,16 @@ public class JwtUtils {
      * @return 令牌
      */
     public static String createToken(Map<String, Object> claims){
-        String token = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, secret).compact();
-        return token;
+        return Jwts.builder().setClaims(claims).setExpiration(generateExpirationDate()).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
+
+    /**
+     * 生成token的过期时间
+     */
+    private static Date generateExpirationDate() {
+        return new Date(System.currentTimeMillis() + expiration * 1000);
+    }
+
 
     /**
      * 从令牌中获取数据声明

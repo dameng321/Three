@@ -1,5 +1,6 @@
 package com.dameng.common.security.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -33,6 +34,9 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "昵称")
     private String nickName;
+
+    @ApiModelProperty(value = "头像")
+    private String avatar;
 
     @ApiModelProperty(value = "邮箱")
     private String email;
