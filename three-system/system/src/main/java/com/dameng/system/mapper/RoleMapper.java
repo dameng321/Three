@@ -2,7 +2,10 @@ package com.dameng.system.mapper;
 
 import com.dameng.system.entity.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dameng.system.entity.dto.RoleUserDto;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,4 +27,14 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @since 0.1.0
      */
     Role selectByUserId(Long userId);
+
+    /**
+     * Description: 获取角色名及用户id
+     * @param userIds 1 
+     * @return java.util.List<com.dameng.system.entity.dto.RoleUserDto>
+     * @author dameng
+     * @date 2022-7-21 下午 02:31
+     * @since 0.1.0
+     */
+    List<RoleUserDto> selectRoleNameByUserIds(List<Long> userIds);
 }

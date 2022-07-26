@@ -1,5 +1,5 @@
-server :
-  port : 11000
+server:
+  port: 11000
   servlet:
     context-path: /three-system
     encoding:
@@ -9,19 +9,20 @@ server :
   tomcat:
     uri-encoding: UTF-8
 
-spring :
+spring:
   profiles:
     active: dev
   application:
-    name : system
+    name: system
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
     servlet:
       load-on-startup: 1
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
   jackson:
-    date-format : yyyy-MM-dd HH:mm:ss
-    time-zone : GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
 
 mybatis-plus:
   configuration:

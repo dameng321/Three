@@ -34,4 +34,21 @@
                 )
     </select>
 
+    <select id="selectRoleNameByUserIds" resultType="com.dameng.system.entity.dto.RoleUserDto">
+        SELECT
+        ur.user_id,
+        r.role_name
+        FROM
+        `user_role` ur
+        INNER JOIN
+        `role` r
+        ON
+        ur.role_id = r.id
+        WHERE
+        ur.user_id IN
+        <foreach collection="userIds" item="userId" open="(" close=")" separator=",">
+            #{userId}
+        </foreach>
+    </select>
+
 </mapper>

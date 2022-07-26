@@ -7,6 +7,7 @@ import com.dameng.common.core.result.R;
 import com.dameng.common.core.utils.JwtUtils;
 import com.dameng.common.core.utils.RedisUtil;
 import com.dameng.common.core.utils.StringUtils;
+import com.dameng.common.core.utils.ip.IpUtils;
 import com.dameng.common.security.entity.SecurityUser;
 import com.dameng.common.security.utils.UserUtil;
 import com.dameng.system.entity.Permission;
@@ -19,11 +20,14 @@ import com.dameng.system.service.LoginService;
 import com.dameng.system.service.PermissionService;
 import com.dameng.system.service.RoleService;
 import com.dameng.system.service.UserService;
+import com.dameng.system.utils.RouterUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +44,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
@@ -98,58 +103,8 @@ public class LoginServiceImpl implements LoginService {
         SecurityUser user = UserUtil.getUser();
         List<Permission> permissions = permissionService.getListByRoleId(user.getRole().getId());
         permissions = permissions.stream().filter(p -> p.getType()==1).collect(Collectors.toList());
-        List<Routers> routers = buildRouters(permissions);
+        List<Routers> routers = RouterUtils.buildRouters(permissions);
         return R.ok().data("route",routers);
-    }
-
-    //=============================== 封装路由 ======================================
-
-    public static List<Routers> buildRouters(List<Permission> permissionList) {
-        List<Routers> resultRouters = new ArrayList<>();
-        for (Permission permission : permissionList) {
-            if (permission.getPid()==1L) {
-                Routers routers = buildRouter(permission);
-                resultRouters.add(buildChildren(permissionList, routers));
-            }
-        }
-        return resultRouters;
-    }
-
-
-    public static Routers buildRouter(Permission permission) {
-        Routers router = new Routers();
-        router.setId(permission.getId());
-        router.setPid(permission.getPid());
-        router.setPath(permission.getPath());
-        router.setRedirect(permission.getRedirect());
-        router.setName(permission.getName());
-        router.setComponent(permission.getComponent());
-        router.setPermissionValue(permission.getPermissionValue());
-        router.setSort(permission.getSort());
-        router.setType(permission.getType());
-        Meta meta = new Meta();
-        meta.setTitle(permission.getName());
-        if (permission.getIcon() != null) {
-            meta.setIcon(permission.getIcon());
-        } else {
-            meta.setIcon("");
-        }
-        router.setMeta(meta);
-        router.setHidden(permission.getStatus() == 1);
-        if (router.getChildren() == null) {
-            router.setChildren(new ArrayList<>());
-        }
-        return router;
-    }
-
-    public static Routers buildChildren(List<Permission> menus, Routers routers) {
-        for (Permission permission : menus) {
-            if (routers.getId().equals(permission.getPid())) {
-                Routers router = buildRouter(permission);
-                routers.getChildren().add(buildChildren(menus, router));
-            }
-        }
-        return routers;
     }
 
 }

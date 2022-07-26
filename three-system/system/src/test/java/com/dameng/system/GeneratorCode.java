@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,7 @@ public class GeneratorCode {
 
     @Test
     public void code(){
-        String url = "jdbc:mysql://1.116.45.32:3366/three?characterEncoding=utf8&serverTimezone=UTC";
+        String url = "jdbc:mysql://10.24.20.55:3366/three?characterEncoding=utf8&serverTimezone=UTC";
         String username = "root";
         String password = "dameng";
 
@@ -42,7 +43,7 @@ public class GeneratorCode {
                             .enableSwagger()           //开启swagger
                             .commentDate("yyyy-MM-dd")
                             .disableOpenDir()
-
+                            .dateType(DateType.ONLY_DATE)
                     ;
 
                 })

@@ -63,6 +63,8 @@ public enum ResultEnum {
 
     USERNAME_OR_PHONE_OR_EMAIL_EXIST(1205, "用户名或手机号或邮箱已存在"),
 
+    USER_NOT_CHECK_PASSWORD(1206,"密码输入不一致"),
+
     //==============================角色相关信息==============================
 
     ROLE_NAME_EXIST(1210, "角色名已存在"),

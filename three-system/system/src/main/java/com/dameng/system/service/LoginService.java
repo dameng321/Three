@@ -3,6 +3,8 @@ package com.dameng.system.service;
 import com.dameng.common.core.result.R;
 import com.dameng.system.entity.form.LoginForm;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>Description: 登录相关服务类</p>
  *

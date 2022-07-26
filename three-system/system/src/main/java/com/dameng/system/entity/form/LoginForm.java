@@ -1,5 +1,6 @@
 package com.dameng.system.entity.form;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 
 @Setter
 @Getter
+@ApiModel(value = "用户登录对象")
 public class LoginForm implements Serializable {
 
     @ApiModelProperty("账号")
